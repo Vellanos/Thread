@@ -1,10 +1,10 @@
-# Projet Symfony Forum pour Développeurs Juniors
+# Symfony Project: Forum for Junior Developers
 
-Ce projet consiste à développer un forum destiné aux développeurs juniors en utilisant le framework PHP Symfony. L'objectif est de créer un espace d'échange pour partager des astuces, des problèmes et des découvertes dans le domaine du développement.
+This project aims to develop a forum for junior developers using the PHP Symfony framework. The goal is to create a space for sharing tips, issues, and discoveries in the field of development.
 
-## Commandes utiles du Projet
+## Useful SQL Commands for the Project
 
-Pour checker s'il y a des doublons dans les tables intermédiaires des votes : 
+To check for duplicates in the intermediate tables of votes: 
 
 ```sql
 SELECT user_id, response_id, COUNT(*) AS count_duplicates
@@ -13,7 +13,7 @@ GROUP BY user_id, response_id
 HAVING COUNT(*) > 1;
 ```
 
-Pour supprimer les doublons : 
+To remove duplicates:
 
 ```sql
 DELETE FROM response_vote
@@ -27,41 +27,42 @@ WHERE id NOT IN (
 );
 ```
 
-## Contexte du Projet
+## Project Context
 
-Après avoir réalisé avec succès le projet PHP MVC / API + SPA, vous êtes désormais prêt à découvrir Symfony, l'un des frameworks PHP les plus populaires et réputés, d'origine française.
+After successfully completing the PHP MVC / API + SPA project, you are now ready to discover Symfony, one of the most popular and reputable PHP frameworks of French origin.
 
-Grâce à Symfony et à ses nombreux outils, vous allez concevoir un forum complet répondant aux besoins des développeurs juniors.
+With Symfony and its numerous tools, you will design a comprehensive forum that meets the needs of junior developers.
 
-## Modalités pédagogiques
+## Pedagogical Modalities
 
-Vous disposez de 10 demi-journées pour mener à bien ce projet, avec une date limite de rendu fixée au 19/04/2024. Le travail est à réaliser en solo.
+You have 10 half-days to complete this project, with a deadline set for 19/04/2024. The work is to be done individually.
 
-## Modalités d'évaluation
+## Evaluation Modalities
 
-L'évaluation se fera par une présentation individuelle incluant une présentation orale et un support de présentation simple mais efficace. La présentation devra couvrir les aspects suivants :
+Evaluation will be done through an individual presentation including an oral presentation and a simple yet effective presentation support. The presentation should cover the following aspects:
 
-- Déroulement de la réalisation (conception, versionnement, réalisation, etc.).
-- Difficultés rencontrées et solutions trouvées (4 min).
-- Améliorations à apporter (4 min).
+- Project execution (design, versioning, implementation, etc.).
+- Challenges encountered and solutions found (4 min).
+- Areas for improvement (4 min).
 
-## Livrables
+## Deliverables
 
-Les livrables attendus sont les suivants :
+The expected deliverables include:
 
-- Modèle Conceptuel de Données (MCD) de la base de données.
-- Maquettes / wireframes.
-- Dépôt GitHub contenant un README complet et pertinent.
-- Rendu sur Simplonline avec les liens vers les différents livrables (assurez-vous qu'ils soient accessibles publiquement !).
+- Conceptual Data Model (CDM) of the database.
+- Mockups / wireframes.
+- GitHub repository containing a complete and relevant README.
+- Submission on Simplonline with links to the various deliverables (ensure they are publicly accessible!).
 
-## Critères de performance
+## Performance Criteria
 
-Les critères de performance pour ce projet sont les suivants :
+Performance criteria for this project are as follows:
 
-- Respect du cahier des charges.
-- Absence d'erreurs dans les fonctionnalités attendues.
-- Adaptation du site à différents écrans (responsive design).
-- Organisation pertinente des fichiers et des assets.
-- Fonctionnalité opérationnelle de la ou des pages.
-- Respect des bonnes pratiques de nommage, d'indentation et de sémantique.
+- Adherence to the requirements.
+- Absence of errors in the expected functionalities.
+- Adaptation of the site to different screens (responsive design).
+- Relevant organization of files and assets.
+- Operational functionality of the page(s).
+- Adherence to best practices in naming, indentation, and semantics.
+
 
