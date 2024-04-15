@@ -6,7 +6,7 @@ use App\Entity\Response;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ResponseFixtures extends AbstractFixture implements DependentFixtureInterface
+class ResponseFixtures extends AbstractFixtures implements DependentFixtureInterface
 {
 
     public function load(ObjectManager $manager)

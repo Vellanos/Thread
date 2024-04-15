@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block body %}
+	<div class="homeBox">
+		<div class="formBg d-flex flex-column justify-content-center align-items-center gap-5">
+			<form class="d-flex align-items-center flex-column gap-3" method="post">
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+
+				{% if app.user %}
+					<div class="mb-3">
+						You are logged in as
+						{{ app.user.userIdentifier }},
+						<a href="{{ path('app_logout') }}">Logout</a>
+					</div>
+				{% endif %}
+
+				<h1>Connexion</h1>
+				<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="email" required autofocus>
+				<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="mot de passe" required>
+
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+				<div class="checkbox mb-3">
+					<label class="white-text">
+						<input type="checkbox" name="_remember_me">
+						Se souvenir de moi
+					</label>
+
+				</div>
+
+				<button class="btn button-nav-orange" type="submit">
+					Connexion
+				</button>
+
+                <button class="btn button-nav-grey">
+					<a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+				</button>
+
+				<button class="btn button-nav-white">
+					<a class="nav-link" href="{{ path('app_home') }}">Retour</a>
+				</button>
+
+			</form>
+		</div>
+	</div>
+{% endblock %}

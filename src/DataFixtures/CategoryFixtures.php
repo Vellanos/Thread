@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use Doctrine\Persistence\ObjectManager;
 
-class CategoryFixtures extends AbstractFixture
+class CategoryFixtures extends AbstractFixtures
 {
 
     public function load(ObjectManager $manager)

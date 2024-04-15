@@ -6,7 +6,7 @@ use App\Entity\Thread;
 use App\Entity\Category;
 use Doctrine\Persistence\ObjectManager;
 
-class CategoryThreadFixtures extends AbstractFixture
+class CategoryThreadFixtures extends AbstractFixtures
 {
 
     public function load(ObjectManager $manager)

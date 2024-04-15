@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 
-class UserFixtures extends AbstractFixture
+class UserFixtures extends AbstractFixtures
 {
     public function load(ObjectManager $manager)
     {

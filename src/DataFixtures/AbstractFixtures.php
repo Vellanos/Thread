@@ -7,7 +7,7 @@ use Faker\Factory;
 use Faker\Generator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-abstract class AbstractFixture extends Fixture
+abstract class AbstractFixtures extends Fixture
 {
     protected Generator $faker;
     protected UserPasswordHasherInterface $passwordHasher;

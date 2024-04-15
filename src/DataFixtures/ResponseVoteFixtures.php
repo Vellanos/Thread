@@ -6,7 +6,7 @@ use App\Entity\ResponseVote;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ResponseVoteFixtures extends AbstractFixture implements DependentFixtureInterface
+class ResponseVoteFixtures extends AbstractFixtures implements DependentFixtureInterface
 {
 
     public function load(ObjectManager $manager)

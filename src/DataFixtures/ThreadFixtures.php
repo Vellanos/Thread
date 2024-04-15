@@ -6,7 +6,7 @@ use App\Entity\Thread;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ThreadFixtures extends AbstractFixture implements DependentFixtureInterface
+class ThreadFixtures extends AbstractFixtures implements DependentFixtureInterface
 {
 
     public function load(ObjectManager $manager)

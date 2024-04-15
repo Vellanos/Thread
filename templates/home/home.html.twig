@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+	{{ title }}!
+{% endblock %}
+
+{% block body %}
+	<div class="homeBox">
+		<div class="formBg d-flex flex-column justify-content-center align-items-center gap-5">
+			<div class="d-flex flex-column text-center gap-3">
+				<h1>
+					THREAD-PLON
+				</h1>
+				<h2>
+					La réussite par le partage
+				</h2>
+			</div>
+			<div class="btn-container d-flex flex-column text-center gap-4">
+				<a class="btn button-nav-orange" href="{{ path('app_login') }}" role="button">Authentification</a>
+				<a class="btn button-nav-grey" href="{{ path('app_login') }}" role="button">Voir les Threads</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

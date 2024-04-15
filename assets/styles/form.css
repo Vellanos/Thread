@@ -1,0 +1,41 @@
+h1 {
+  color: var(--orange);
+}
+
+h2 {
+  color: var(--white);
+}
+
+.homeBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  height: calc(100dvh - 3.5rem);
+  overflow: hidden;
+}
+
+.formBg {
+  height: 70vh;
+  background-color: var(--bgform);
+  padding: 20px;
+  border-radius: 20px;
+  margin: 0;
+  min-width: 355px;
+  width: 35%;
+}
+
+.btn-container {
+  padding: 0px 50px;
+}
+
+.white-text {
+  color: white;
+}
+
+input::placeholder,
+textarea::placeholder {
+  text-align: center;
+}
+
+
