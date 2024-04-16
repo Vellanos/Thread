@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ thread.title }}
+{% endblock %}
+
+{% block body %}
+	<div class="threadBox d-flex flex-column gap-3 justify-content-start">
+		<h1>{{ thread.title }}</h1>
+		<div class="d-flex flex-row gap-3 justify-content-center align-items-center">
+			<h2>
+				{% for category in thread.categories %}
+					<span>
+						{{ category.title }}
+					</span>
+				{% endfor %}
+			</h2>
+			<div class="status-indicator {% if thread.status == 'open' %}green{% else %}red{% endif %}"></div>
+		</div>
+
+		<div class="formBgDetails d-flex flex-column gap-5 text-white">
+			<div class="d-flex justify-content-between">
+				<p>{{ thread.getIdUser().pseudo }}</p>
+				<p>{{ thread.created.format('d/m/Y') }}</p>
+			</div>
+			<p>{{ thread.main }}</p>
+		</div>
+		<h2>{{ responses|length }}
+			Réponse(s)</h2>
+		{% for response in responses %}
+			<div class="formBgDetails d-flex flex-column gap-5 text-white">
+				<div class="d-flex justify-content-between">
+					<p>{{ response.getUser().pseudo }}</p>
+					<p>{{ response.created.format('d/m/Y') }}</p>
+				</div>
+				<p>{{ response.main }}</p>
+			</div>
+		{% endfor %}
+	</div>
+
+	{# Section de débogage #}
+	{# <div class="debugBox">
+		        <h2>Debug</h2>
+		        <pre>{{ dump(responses) }}</pre>
+		    </div> #}
+{% endblock %}

@@ -111,3 +111,21 @@ input {
   color: black !important;
   text-align: center;
 }
+
+.status-contener {
+  width: 100%;
+}
+
+.status-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.status-indicator.green {
+  background-color: green;
+}
+
+.status-indicator.red {
+  background-color: red;
+}

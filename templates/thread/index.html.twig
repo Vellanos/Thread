@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Threads
+{% endblock %}
+
+{% block body %}
+	<div class="threadBox d-flex flex-column gap-3">
+		<h1>Liste des Threads</h1>
+		{% for thread in threads %}
+			<a href="{{ path('app_thread', {'id': thread.id}) }}" class="formBg d-flex flex-column align-items-center gap-5">
+				<div class="d-flex flex-column align-items-center">
+					<h3>{{ thread.title }}</h3>
+					<h4>
+						{% for category in thread.categories %}
+							<span>
+								{{category.title}}
+							</span>
+						{% endfor %}
+					</h4>
+				</div>
+				<p class="text-white">{{ thread.description }}</p>
+				<div class="status-contener d-flex justify-content-end">
+					<div class="status-indicator {% if thread.status == 'open' %}green{% else %}red{% endif %}"></div>
+				</div>
+
+			</a>
+		{% endfor %}
+	</div>
+
+	{# Section de débogage #}
+	{# <div class="debugBox">
+	        <h2>Debug</h2>
+	        <pre>{{ dump(threads) }}</pre>
+	    </div> #}
+{% endblock %}
