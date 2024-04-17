@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition du profil
+{% endblock %}
+
+{% block body %}
+	{% if app.user %}
+		{% if (user.getId() == app.user.id or is_granted('ROLE_ADMIN')) %}
+			<div class="homeBox d-flex flex-column gap-3">
+				<h1>Edit votre Profile</h1>
+				<div class="formBgCreate d-flex flex-column justify-content-center">
+					{{ form_start(editForm, {'attr': {'class': 'd-flex align-items-center flex-column gap-3'}}) }}
+
+					{{ form_widget(editForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+					{{ form_errors(editForm.email) }}
+
+					{{ form_widget(editForm.pseudo, {'attr': {'class': 'form-control', 'placeholder': 'Pseudo'}}) }}
+					{{ form_errors(editForm.pseudo) }}
+
+					<div class="d-flex flex-wrap justify-content-center gap-2">
+						<button type="submit" class="btn button-nav-orange">Editer</button>
+						<a class="btn button-nav-orange" href="{{ path('app_home') }}">Supprimer</a>
+					</div>
+
+					{{ form_end(editForm) }}
+
+				</div>
+			</div>
+		{% else %}
+			<div class="homeBox">
+				<div class="formBgCreate d-flex flex-column justify-content-center">
+					<h2>Vous n'avez pas accès à ce Profile :
+						<a href="{{ path('app_profile', {'id': user.id}) }}">
+							<span class="blue">retour</span>
+						</a>
+					</h2>
+				</div>
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="homeBox">
+			<div class="formBgCreate d-flex flex-column justify-content-center">
+				<h2>Non connecté, veuillez vous
+					<a href="{{ path('app_login')}}">
+						<span class="blue">connecter</span>
+					</a>
+				</h2>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

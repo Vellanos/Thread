@@ -59,7 +59,7 @@ class ThreadListController extends AbstractController
 
             $entityManager->persist($thread);
             $entityManager->flush();
-            return $this->redirectToRoute('app_thread_list');
+            return $this->redirectToRoute('app_thread', ['id' => $thread->getId()]);
         }
 
         return $this->render('thread/create.html.twig', [

@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile
+{% endblock %}
+
+{% block body %}
+	{% if user is not empty %}
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="card-title">{{ user.pseudo }}</h5>
+						</div>
+						<div class="card-body">
+							<ul class="list-group">
+								{% if user.id == app.user.id %}
+									<li class="list-group-item">
+										<strong>Email:</strong>
+										{{ user.email }}
+									</li>
+								{% endif %}
+								<li class="list-group-item">
+									<strong>Membre depuis le :</strong>
+									{{ user.created|date('Y-m-d H:i:s') }}
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="d-flex flex-row justify-content-center mt-2">
+						<a class="btn button-nav-orange" href="{{ path('app_profile_edit', {'id': user.id}) }}">Modifier le profil</a>
+					</div>
+				</div>
+			</div>
+
+
+			{% if threads is not empty %}
+				<div class="row mt-5">
+					<div class="col-md-6 offset-md-3">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="card-title">Les Threads de
+									{{ user.pseudo }}</h5>
+							</div>
+							<div class="card-body">
+								<ul class="list-group">
+									{% for thread in threads %}
+										<a href="{{ path('app_thread', {'id': thread.id}) }}" class="list-group-item list-group-item-action">
+											<strong>Title:</strong>
+											{{ thread.title }}<br>
+											<strong>Description:</strong>
+											{{ thread.description }}<br>
+											<strong>Created:</strong>
+											{{ thread.created|date('Y-m-d H:i:s') }}
+										</a>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+
+			{% if responses is not empty %}
+
+				<div class="row mt-5">
+					<div class="col-md-6 offset-md-3">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="card-title">Les Threads où
+									{{ user.pseudo }}
+									participe</h5>
+							</div>
+							<div class="card-body">
+								<ul class="list-group">
+									{% for response in responses %}
+										<a href="{{ path('app_thread', {'id': response.thread.id}) }}" class="list-group-item list-group-item-action">
+											<strong>Title:</strong>
+											{{ response.thread.title }}<br>
+											<strong>Description:</strong>
+											{{ response.thread.description }}<br>
+											<strong>Created:</strong>
+											{{ response.thread.created|date('Y-m-d H:i:s') }}
+										</a>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="homeBox">
+			<div class="formBgCreate d-flex flex-column justify-content-center">
+				<h2>Vous vous êtes perdu :
+					<a href="{{ path('app_home')}}">
+						<span class="blue">Retour à l'accueil</span>
+					</a>
+				</h2>
+			</div>
+		</div>
+	{% endif %}
+	{# Section de débogage #}
+	{# <div class="debugBox">
+				    <h2>Debug</h2>
+				    <pre>{{ dump(responses) }}</pre>
+				</div> #}
+{% endblock %}
