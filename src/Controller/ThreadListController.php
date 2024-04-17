@@ -12,17 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ThreadListController extends AbstractController
 {
-    private $entityManager;
+    // private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
+    // public function __construct(EntityManagerInterface $entityManager)
+    // {
+    //     $this->entityManager = $entityManager;
+    // }
 
     #[Route('/thread/list', name: 'app_thread_list')]
-    public function index(): httpResponse
+    public function index(EntityManagerInterface $entityManager): httpResponse
     {
-        $threadRepository = $this->entityManager->getRepository(Thread::class);
+        $threadRepository = $entityManager->getRepository(Thread::class);
         $threads = $threadRepository->findAll();
 
         return $this->render('thread/index.html.twig', [
@@ -31,9 +31,9 @@ class ThreadListController extends AbstractController
     }
 
     #[Route('/thread/{id}', name: 'app_thread')]
-    public function threadDetails($id): httpResponse
+    public function threadDetails($id,EntityManagerInterface $entityManager): httpResponse
     {
-        $threadRepository = $this->entityManager->getRepository(Thread::class);
+        $threadRepository = $entityManager->getRepository(Thread::class);
         $thread = $threadRepository->findOneBy(['id' => $id]);
         $responses = $thread->getResponses();
 
@@ -43,10 +43,10 @@ class ThreadListController extends AbstractController
         ]);
     }
 
-    #[Route('/thread/new', name: 'app_thread_new')]
+    #[Route('/thread/new', name: 'app_thread_new', priority: 10)]
     public function createCharacter(
         Request $request,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
     ) {
         $thread = new Thread();
 
@@ -56,10 +56,16 @@ class ThreadListController extends AbstractController
 
         $user = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && !empty($user)) {
 
-            $this->$entityManager->persist($thread);
-            $this->$entityManager->flush();
+            $thread->setCreated(new \Datetime());
+            $thread->setEdited(new \Datetime());
+            $thread->setStatus("open");
+            $thread->setIdUser($user);
+
+            $entityManager->persist($thread);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_thread_list');
         }
 
         return $this->render('thread/create.html.twig', [

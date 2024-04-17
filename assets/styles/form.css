@@ -50,6 +50,27 @@ h2,h4 {
   text-align: center;
 }
 
+.formBgCreate {
+  width: 50%;
+  text-align: center;
+}
+
+#thread_form_description {
+  height: 70px;
+  border-radius: 8px !important;
+  text-align: start !important;
+}
+
+#thread_form_categories {
+  background-color: var(--grey)
+}
+
+#thread_form_main {
+  height: 100px;
+  border-radius: 8px !important;
+  text-align: start !important;
+}
+
 .btn-container {
   padding: 0px 50px;
 }
@@ -61,6 +82,7 @@ h2,h4 {
 input::placeholder,
 textarea::placeholder {
   text-align: center;
+  font-weight: bold;
+  color: black !important;
 }
-
 
