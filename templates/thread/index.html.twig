@@ -6,6 +6,7 @@
 {% block body %}
 	<div class="threadBox d-flex flex-column gap-3">
 		<h1>Liste des Threads</h1>
+		<a class="btn button-nav-orange" href="{{ path('app_thread_new') }}">Créer son Thread</a>
 		{% for thread in threads %}
 			<a href="{{ path('app_thread', {'id': thread.id}) }}" class="formBgDetails d-flex flex-column align-items-center gap-5">
 				<div class="d-flex flex-column align-items-center">

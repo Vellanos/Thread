@@ -57,6 +57,7 @@ ul {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 /* 7. Create a root stacking context */
@@ -135,4 +136,8 @@ input {
 
 label {
   font-weight: bold;
+}
+
+.blue {
+  color: rgb(57, 57, 209) !important;
 }

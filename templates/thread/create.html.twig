@@ -33,7 +33,7 @@
 		<div class="homeBox">
 			<div class="formBgCreate d-flex flex-column justify-content-center">
 				<h2>Non connecté, veuillez vous
-					<a href="{{ path('app_login')}}">connecter</a>
+					<a href="{{ path('app_login')}}"><span class="blue">connecter</span></a>
 				</h2>
 			</div>
 		</div>
@@ -41,6 +41,6 @@
 	{# Section de débogage #}
 	{# <div class="debugBox">
 		<h2>Debug</h2>
-		<pre>{{ dump(app.user.roles) }}</pre>
+		<pre>{{ dump(app.user) }}</pre>
 	</div> #}
 {% endblock %}

@@ -31,7 +31,7 @@ class Category
     /**
      * @var Collection<int, Thread>
      */
-    #[ORM\ManyToMany(targetEntity: Thread::class, inversedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: Thread::class, mappedBy: 'categories')]
     private Collection $thread;
 
     public function __construct()

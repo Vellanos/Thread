@@ -133,7 +133,7 @@ VALUES
 
 
 -- Associer les threads supplémentaires à des catégories existantes
-INSERT INTO category_thread (category_id, thread_id)
+INSERT INTO thread_category (category_id, thread_id)
 VALUES 
     (1, 1),
     (2, 2),
