@@ -1,16 +1,23 @@
 h1,h3 {
   color: var(--orange);
+  font-weight: bolder
 }
 
 h2,h4 {
   color: var(--white);
+  font-weight: bolder
+}
+
+.border-cat{
+  border: 2px solid black;
+  padding: 10px;
 }
 
 .homeBox {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: gray;
+  background-color: var(--darkGrey);
   height: calc(100dvh - 3.5rem);
   overflow: hidden;
 }
@@ -19,7 +26,7 @@ h2,h4 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: gray;
+  background-color: var(--darkGrey);
 }
 
 .formBg {
