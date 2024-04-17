@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un Thread
+{% endblock %}
+
+{% block body %}
+	{% if app.user%}
+		{% if (thread.getIdUser() == app.user) %}
+			<div class="homeBox d-flex flex-column gap-3">
+				<h1>Edit votre Thread</h1>
+				<div class="formBgCreate d-flex flex-column justify-content-center">
+					{{ form_start(editForm, {'attr': {'class': 'd-flex align-items-center flex-column gap-3'}}) }}
+
+					<label for="categories" class="form-label">Catégories</label>
+					{{ form_widget(editForm.categories, {'attr': {'class': 'form-control d-flex flex-wrap justify-content-center gap-2', 'multiple': 'multiple'}}) }}
+					{{ form_errors(editForm.categories) }}
+
+					{{ form_widget(editForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'}}) }}
+					{{ form_errors(editForm.title) }}
+
+					{{ form_widget(editForm.description, {'attr': {'class': 'form-control', 'rows': 3, 'placeholder': 'Description'}}) }}
+					{{ form_errors(editForm.description) }}
+
+					{% if is_granted('ROLE_ADMIN') %}
+						{{ form_widget(editForm.status, {'attr': {'class': 'form-control', 'rows': 3, 'placeholder': 'Status'}}) }}
+						{{ form_errors(editForm.status) }}
+					{% endif %}
+
+					{{ form_widget(editForm.main, {'attr': {'class': 'form-control', 'placeholder': 'Contenu'}}) }}
+					{{ form_errors(editForm.main) }}
+
+					<button type="submit" class="btn button-nav-orange">Editer</button>
+
+					{{ form_end(editForm) }}
+
+				</div>
+			</div>
+		{% else %}
+			<div class="homeBox">
+				<div class="formBgCreate d-flex flex-column justify-content-center">
+					<h2>Vous n'avez pas accèder à ce Thread :
+						<a href="{{ path('app_thread_list')}}">
+							<span class="blue">retour</span>
+						</a>
+					</h2>
+				</div>
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="homeBox">
+			<div class="formBgCreate d-flex flex-column justify-content-center">
+				<h2>Non connecté, veuillez vous
+					<a href="{{ path('app_login')}}">
+						<span class="blue">connecter</span>
+					</a>
+				</h2>
+			</div>
+		</div>
+	{% endif %}
+	{# Section de débogage #}
+	{# <div class="debugBox">
+						<h2>Debug</h2>
+						<pre>{{ dump(app.user) }}</pre>
+					</div> #}
+{% endblock %}

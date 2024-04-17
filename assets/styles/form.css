@@ -61,8 +61,14 @@ h2,h4 {
   text-align: start !important;
 }
 
-#thread_form_categories {
-  background-color: var(--grey)
+#thread_form_title {
+  text-align: start !important;
+  border-radius: 8px !important;
+}
+
+#thread_form_categories, #thread_form_status {
+  background-color: var(--grey);
+  font-weight: bold;
 }
 
 #thread_form_main {

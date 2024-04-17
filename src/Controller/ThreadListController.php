@@ -12,14 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ThreadListController extends AbstractController
 {
-    // private $entityManager;
 
-    // public function __construct(EntityManagerInterface $entityManager)
-    // {
-    //     $this->entityManager = $entityManager;
-    // }
-
-    #[Route('/thread/list', name: 'app_thread_list')]
+    #[Route('/thread', name: 'app_thread_list')]
     public function index(EntityManagerInterface $entityManager): httpResponse
     {
         $threadRepository = $entityManager->getRepository(Thread::class);
@@ -70,6 +64,34 @@ class ThreadListController extends AbstractController
 
         return $this->render('thread/create.html.twig', [
             'createForm' => $form
+        ]);
+    }
+
+    #[Route('/thread/{id}/edit', name: 'app_thread_edit')]
+    public function editCharacter(
+        $id,
+        EntityManagerInterface $entityManager,
+        Request $request
+    ) {
+        $threadRepository = $entityManager->getRepository(Thread::class);
+        $thread = $threadRepository->find($id);
+
+        $form = $this->createForm(ThreadFormType::class, $thread);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $thread->setEdited(new \Datetime);
+
+            $entityManager->persist($thread);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_thread', ['id' => $thread->getId()]);
+        }
+
+        return $this->render('thread/edit.html.twig', [
+            'controller_name' => 'CharacterController',
+            'editForm' => $form,
+            'thread' => $thread
         ]);
     }
 }

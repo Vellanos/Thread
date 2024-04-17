@@ -10,15 +10,15 @@
 			<div class="formBgCreate d-flex flex-column justify-content-center">
 				{{ form_start(createForm, {'attr': {'class': 'd-flex align-items-center flex-column gap-3'}}) }}
 
+				<label for="categories" class="form-label">Catégories</label>
+				{{ form_widget(createForm.categories, {'attr': {'class': 'form-control d-flex flex-wrap justify-content-center gap-2', 'multiple': 'multiple'}}) }}
+				{{ form_errors(createForm.categories) }}
+
 				{{ form_widget(createForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'}}) }}
 				{{ form_errors(createForm.title) }}
 
 				{{ form_widget(createForm.description, {'attr': {'class': 'form-control', 'rows': 3, 'placeholder': 'Description'}}) }}
 				{{ form_errors(createForm.description) }}
-
-				<label for="categories" class="form-label">Catégories</label>
-				{{ form_widget(createForm.categories, {'attr': {'class': 'form-control d-flex flex-wrap justify-content-center gap-2', 'multiple': 'multiple'}}) }}
-				{{ form_errors(createForm.categories) }}
 
 				{{ form_widget(createForm.main, {'attr': {'class': 'form-control', 'placeholder': 'Contenu'}}) }}
 				{{ form_errors(createForm.main) }}

@@ -10,6 +10,9 @@
 			<h1>{{ thread.title }}</h1>
 			<div class="status-indicator {% if thread.status == 'open' %}green{% else %}red{% endif %}"></div>
 		</div>
+		{% if app.user and (thread.getIdUser() == app.user or is_granted('ROLE_ADMIN')) %}
+			<a href="{{ path('app_thread_edit', {'id': thread.id}) }}">Modifier le thread</a>
+		{% endif %}
 		<div class="d-flex flex-row gap-3 justify-content-center align-items-center">
 			<h2 class="d-flex flex-row gap-2">
 				{% for category in thread.categories %}
@@ -43,7 +46,7 @@
 
 	{# Section de débogage #}
 	{# <div class="debugBox">
-			<h2>Debug</h2>
-			<pre>{{ dump(thread) }}</pre>
-		</div> #}
+					<h2>Debug</h2>
+					<pre>{{ dump(thread) }}</pre>
+				</div> #}
 {% endblock %}
