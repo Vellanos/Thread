@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition d'une Réponse
+{% endblock %}
+
+{% block body %}
+	{% if app.user%}
+		{% if (response.getUser() == app.user or is_granted('ROLE_ADMIN')) %}
+			<div class="homeBox d-flex flex-column gap-3">
+				<h1>Editer votre Réponse</h1>
+				<div class="formBgCreate d-flex flex-column justify-content-center">
+					{{ form_start(editForm, {'attr': {'class': 'd-flex align-items-center flex-column gap-3'}}) }}
+
+					{{ form_widget(editForm.main, {'attr': {'class': 'form-control', 'placeholder': 'Contenu'}}) }}
+					{{ form_errors(editForm.main) }}
+
+					<div class="d-flex flex-wrap justify-content-center gap-2">
+						<button type="submit" class="btn button-nav-orange">Editer</button>
+						{# <a class="btn button-nav-orange" href="{{ path('app_response_delete', {'id': thread.id}) }}">Supprimer</a> #}
+					</div>
+					{{ form_end(editForm) }}
+				</div>
+			</div>
+		{% else %}
+			<div class="homeBox">
+				<div class="formBgCreate d-flex flex-column justify-content-center">
+					<h2>Vous n'avez pas accèder à cette Réponse :
+						<a href="{{ path('app_thread_list')}}">
+							<span class="blue">retour</span>
+						</a>
+					</h2>
+				</div>
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="homeBox">
+			<div class="formBgCreate d-flex flex-column justify-content-center">
+				<h2>Non connecté, veuillez vous
+					<a href="{{ path('app_login')}}">
+						<span class="blue">connecter</span>
+					</a>
+				</h2>
+			</div>
+		</div>
+	{% endif %}
+	{# Section de débogage #}
+	{# <div class="debugBox">
+							<h2>Debug</h2>
+							<pre>{{ dump(app.user) }}</pre>
+						</div> #}
+{% endblock %}

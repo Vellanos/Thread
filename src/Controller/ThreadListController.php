@@ -91,7 +91,6 @@ class ThreadListController extends AbstractController
         }
 
         return $this->render('thread/edit.html.twig', [
-            'controller_name' => 'CharacterController',
             'editForm' => $form,
             'thread' => $thread
         ]);

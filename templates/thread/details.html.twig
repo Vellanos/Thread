@@ -21,9 +21,7 @@
 					</span>
 				{% endfor %}
 			</h2>
-
 		</div>
-
 		<div class="formBgDetails d-flex flex-column gap-5 text-white">
 			<div class="d-flex justify-content-between">
 				<a href="{{ path('app_profile', {'id': thread.getIdUser().id})}}">{{ thread.getIdUser().pseudo }}</a>
@@ -49,19 +47,20 @@
 		<h2>{{ responses|length }}
 			Réponse(s)</h2>
 		{% for response in responses %}
-			<div class="formBgDetails d-flex flex-column gap-5 text-white">
+			{# CETTE DIV LA  #}
+			<a href="{{ path('app_response_edit', {'id_thread': thread.id, 'id_response': response.id}) }}" class="formBgDetails d-flex flex-column gap-5 text-white">
 				<div class="d-flex justify-content-between">
-					<a href="{{ path('app_profile', {'id': response.getUser().id})}}">{{ response.getUser().pseudo }}</a>
+					{{ response.getUser().pseudo }}
 					<p>{{ response.created.format('d/m/Y') }}</p>
 				</div>
 				<p>{{ response.main }}</p>
-			</div>
+			</a>
 		{% endfor %}
 	</div>
 
 	{# Section de débogage #}
 	{# <div class="debugBox">
-									<h2>Debug</h2>
-									<pre>{{ dump(thread) }}</pre>
-								</div> #}
+											<h2>Debug</h2>
+											<pre>{{ dump(thread) }}</pre>
+										</div> #}
 {% endblock %}
