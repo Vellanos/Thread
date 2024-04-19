@@ -56,11 +56,10 @@
 				<p>{{ response.main }}</p>
 			</a>
 		{% endfor %}
+		<div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+		<a class="btn button-nav-orange" href="{{ path('app_response_new', {'id_thread': thread.id}) }}">Répondre</a>
+		<a class="btn button-nav-grey" href="{{ path('app_thread_list') }}">Retour</a>
+		</div>
 	</div>
 
-	{# Section de débogage #}
-	{# <div class="debugBox">
-											<h2>Debug</h2>
-											<pre>{{ dump(thread) }}</pre>
-										</div> #}
 {% endblock %}

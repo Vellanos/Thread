@@ -16,6 +16,7 @@
 
 					<div class="d-flex flex-wrap justify-content-center gap-2">
 						<button type="submit" class="btn button-nav-orange">Editer</button>
+						<a class="btn button-nav-grey" href="{{ path('app_thread', {'id': response.getThread.id}) }}">Retour</a>
 						<a class="btn button-nav-orange" href="{{ path('app_response_delete', {'id_thread': response.getThread.id, 'id_response': response.id}) }}">Supprimer</a>
 					</div>
 					{{ form_end(editForm) }}
