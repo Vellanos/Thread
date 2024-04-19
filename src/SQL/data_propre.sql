@@ -13,8 +13,10 @@ VALUES
     ('admin', 'admin@example.com', '$2y$10$jN7PNU5rYPHJbyhj6iy9rOZbw3vEK/NH4C8CzYl0XIfMJYd/u3CFa', '["ROLE_USER"]', NOW(), NOW()),
     ('user3', 'user3@example.com', '$2y$10$BMq4LfLTsE43xgJBl6G.vuqupR0Dy9zOHCfP5b75iea8am8Wjb3Fy', '["ROLE_USER"]', NOW(), NOW()),
     ('user4', 'user4@example.com', '$2y$10$5rHUNcsSxTqJVu.qMD5SZuTTRWw5fns8dY8CqT9so5JgELOU/fQk6', '["ROLE_USER"]', NOW(), NOW()),
-    ('moderator', 'moderator@example.com', '$2y$10$SdPDLyPNoHf1KfNuGY6QWuVE7NNwhiWmlh7FdC2OWbn/e3OtJyrSy', '["ROLE_ADMIN"]', NOW(), NOW()),
-    ('superuser', 'superuser@example.com', '$2y$10$A3/AWqWbNKEzPpY/uJhG8.ZL1G7MY.YFvyxu6c5o4DcBoqGgBJmhW', '["ROLE_ADMIN"]', NOW(), NOW());
+    ('admin', 'admin@admin.fr', '$2y$13$7zXwhHage3.K4WT6yPvhBe0bSqHJL6GjvYYlDmOptgG.8NmHsACem', '["ROLE_ADMIN"]', NOW(), NOW()),
+    ('Vellanos', 'test@test.fr', '$2y$13$e5norTMBq14lv61IYZou3OmWrDMLpqy.MBiDGgtfjEy1HBgni5Tia', '["ROLE_USER,ROLE_ADMIN"]', NOW(), NOW());
+    -- MDP pour Vellanos (ADMIN et USER) : 12345678
+    -- MDP pour admin (ADMIN) : admin123
 
 INSERT INTO thread (status, title, description, main, created, edited, user_id)
 VALUES ('open', 'Problème de boucle en PHP', 'J''ai un problème avec une boucle PHP.', 'Je suis en train de coder une boucle en PHP et elle semble entrer dans une boucle infinie. Quelqu''un peut-il m''aider ?', NOW(), NOW(), 1),

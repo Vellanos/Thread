@@ -5,7 +5,7 @@
 
 {% block body %}
 	{% if app.user%}
-		{% if (thread.getIdUser() == app.user) %}
+		{% if (thread.getIdUser() == app.user or is_granted('ROLE_ADMIN')) %}
 			<div class="homeBox d-flex flex-column gap-3">
 				<h1>Edit votre Thread</h1>
 				<div class="formBgCreate d-flex flex-column justify-content-center">
@@ -29,7 +29,10 @@
 					{{ form_widget(editForm.main, {'attr': {'class': 'form-control', 'placeholder': 'Contenu'}}) }}
 					{{ form_errors(editForm.main) }}
 
-					<button type="submit" class="btn button-nav-orange">Editer</button>
+					<div class="d-flex flex-wrap justify-content-center gap-2">
+						<button type="submit" class="btn button-nav-orange">Editer</button>
+						<a class="btn button-nav-orange" href="{{ path('app_thread_delete', {'id': thread.id}) }}">Supprimer</a>
+					</div>
 
 					{{ form_end(editForm) }}
 
@@ -59,7 +62,7 @@
 	{% endif %}
 	{# Section de débogage #}
 	{# <div class="debugBox">
-						<h2>Debug</h2>
-						<pre>{{ dump(app.user) }}</pre>
-					</div> #}
+							<h2>Debug</h2>
+							<pre>{{ dump(app.user) }}</pre>
+						</div> #}
 {% endblock %}

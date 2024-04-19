@@ -7,7 +7,7 @@
 {% block body %}
 	<div class="threadBox d-flex flex-column gap-3 justify-content-start">
 		<div class="d-flex flex-row gap-2 align-items-center">
-			<h1>{{ thread.title }}</h1>
+			<h1 class="text-center">{{ thread.title }}</h1>
 			<div class="status-indicator {% if thread.status == 'open' %}green{% else %}red{% endif %}"></div>
 		</div>
 		{% if app.user and (thread.getIdUser() == app.user or is_granted('ROLE_ADMIN')) %}
@@ -30,6 +30,21 @@
 				<p>{{ thread.created.format('d/m/Y') }}</p>
 			</div>
 			<p>{{ thread.main }}</p>
+			{% if app.user %}
+				<div class="d-flex justify-content-center align-items-center flex-wrap gap-2">
+					<a href="{{ path('app_thread_vote_up', {'id': thread.id}) }}" class="btn button-nav-orange">like</a>
+					<p>score :
+						{{ thread.totalVotes }}</p>
+					<a href="{{ path('app_thread_vote_down', {'id': thread.id}) }}" class="btn button-nav-orange">dislike</a>
+				</div>
+			{% else %}
+				<div class="d-flex justify-content-center align-items-center flex-wrap gap-2">
+					<a href="{{ path('app_login') }}" class="btn button-nav-orange">like</a>
+					<p>score :
+						{{ thread.totalVotes }}</p>
+					<a href="{{ path('app_login') }}" class="btn button-nav-orange">dislike</a>
+				</div>
+			{% endif %}
 		</div>
 		<h2>{{ responses|length }}
 			Réponse(s)</h2>
@@ -46,7 +61,7 @@
 
 	{# Section de débogage #}
 	{# <div class="debugBox">
-						<h2>Debug</h2>
-						<pre>{{ dump(thread) }}</pre>
-					</div> #}
+									<h2>Debug</h2>
+									<pre>{{ dump(thread) }}</pre>
+								</div> #}
 {% endblock %}

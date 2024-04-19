@@ -49,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Thread>
      */
-    #[ORM\OneToMany(targetEntity: Thread::class, mappedBy: 'id_user', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Thread::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $threads;
 
     /**

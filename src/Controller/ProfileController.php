@@ -8,9 +8,9 @@ use App\Entity\User;
 use App\Form\ProfileFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ProfileController extends AbstractController
@@ -36,7 +36,7 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/{id}/edit', name: 'app_profile_edit')]
-    public function userEdit($id, EntityManagerInterface $entityManager, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function userEdit($id, EntityManagerInterface $entityManager, Request $request): Response
     {
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->find($id);
@@ -47,7 +47,7 @@ class ProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setEdited(new \Datetime);
-            
+
             $entityManager->persist($user);
             $entityManager->flush();
             return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
@@ -57,5 +57,20 @@ class ProfileController extends AbstractController
             'user' => $user,
             'editForm' => $form
         ]);
+    }
+
+    #[Route('/delete/profile', name: 'app_profile_delete')]
+    public function deleteUser(EntityManagerInterface $entityManager, Security $security): Response
+    {
+        $user = $this->getUser();
+
+        if ($user) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
+
+        $security->logout(false);
+
+        return $this->redirectToRoute('app_register');
     }
 }

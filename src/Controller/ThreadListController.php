@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Thread;
+use App\Entity\ThreadVote;
 use App\Form\ThreadFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response as httpResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class ThreadListController extends AbstractController
 {
@@ -94,4 +96,96 @@ class ThreadListController extends AbstractController
             'thread' => $thread
         ]);
     }
+
+    #[Route('/thread/{id}/voteUp', name: 'app_thread_vote_up')]
+    public function voteUp(Thread $thread, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        $existingVote = $entityManager->getRepository(ThreadVote::class)->findOneBy([
+            'thread' => $thread,
+            'user' => $user
+        ]);
+
+        if ($existingVote) {
+            if (!$existingVote->isVote()) {
+                $existingVote->setVote(true);
+                $entityManager->flush();
+            } else {
+                $entityManager->remove($existingVote);
+                $entityManager->flush();
+            }
+
+            return $this->redirectToRoute('app_thread', ['id' => $thread->getId()]);
+        }
+
+        $threadVote = new ThreadVote();
+        $threadVote->setThread($thread);
+        $threadVote->setUser($user);
+        $threadVote->setVote(true);
+
+        $entityManager->persist($threadVote);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_thread', ['id' => $thread->getId()]);
+    }
+
+    #[Route('/thread/{id}/voteDown', name: 'app_thread_vote_down')]
+    public function voteDown(Thread $thread, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        $existingVote = $entityManager->getRepository(ThreadVote::class)->findOneBy([
+            'thread' => $thread,
+            'user' => $user
+        ]);
+
+        if ($existingVote) {
+            if ($existingVote->isVote()) {
+                $existingVote->setVote(false);
+                $entityManager->flush();
+            } else {
+                $entityManager->remove($existingVote);
+                $entityManager->flush();
+            }
+
+            return $this->redirectToRoute('app_thread', ['id' => $thread->getId()]);
+        }
+
+        $threadVote = new ThreadVote();
+        $threadVote->setThread($thread);
+        $threadVote->setUser($user);
+        $threadVote->setVote(false);
+
+        $entityManager->persist($threadVote);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_thread', ['id' => $thread->getId()]);
+    }
+
+    #[Route('/thread/{id}/delete', name: 'app_thread_delete')]
+public function deleteUser($id, EntityManagerInterface $entityManager): Response
+{
+    $threadRepository = $entityManager->getRepository(Thread::class);
+    $thread = $threadRepository->find($id);
+
+    if (!$thread) {
+        throw $this->createNotFoundException('Thread not found');
+    }
+
+    $user = $this->getUser();
+    
+    if (!$user) {
+        return $this->redirectToRoute('app_login');
+    }
+
+    if ($thread->getIdUser() !== $user) {
+        throw $this->createAccessDeniedException('You are not allowed to delete this thread');
+    }
+
+    $entityManager->remove($thread);
+    $entityManager->flush();
+
+    return $this->redirectToRoute('app_thread_list');
+}
 }
