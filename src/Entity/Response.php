@@ -138,4 +138,19 @@ class Response
 
         return $this;
     }
+
+    public function getTotalVotes(): int
+    {
+        $count = 0;
+        foreach ($this->getResponseVotes() as $vote) {
+            if ($vote->isVote()) {
+                $count++;
+            }
+
+            if (!$vote->isVote()) {
+                $count--;
+            }
+        }
+        return $count;
+    }
 }

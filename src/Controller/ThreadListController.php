@@ -97,7 +97,7 @@ class ThreadListController extends AbstractController
     }
 
     #[Route('/thread/{id}/voteUp', name: 'app_thread_vote_up')]
-    public function voteUp(Thread $thread, Request $request, EntityManagerInterface $entityManager): Response
+    public function voteUp(Thread $thread, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
 
@@ -130,7 +130,7 @@ class ThreadListController extends AbstractController
     }
 
     #[Route('/thread/{id}/voteDown', name: 'app_thread_vote_down')]
-    public function voteDown(Thread $thread, Request $request, EntityManagerInterface $entityManager): Response
+    public function voteDown(Thread $thread, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
 

@@ -28,22 +28,22 @@
 				<p>{{ thread.created.format('d/m/Y') }}</p>
 			</div>
 			<p>{{ thread.main }}</p>
-			{% if app.user %}
-				<div class="d-flex justify-content-center align-items-center flex-wrap gap-2">
-					<a href="{{ path('app_thread_vote_up', {'id': thread.id}) }}" class="btn button-nav-orange">like</a>
-					<p>score :
-						{{ thread.totalVotes }}</p>
-					<a href="{{ path('app_thread_vote_down', {'id': thread.id}) }}" class="btn button-nav-orange">dislike</a>
-				</div>
-			{% else %}
-				<div class="d-flex justify-content-center align-items-center flex-wrap gap-2">
-					<a href="{{ path('app_login') }}" class="btn button-nav-orange">like</a>
-					<p>score :
-						{{ thread.totalVotes }}</p>
-					<a href="{{ path('app_login') }}" class="btn button-nav-orange">dislike</a>
-				</div>
-			{% endif %}
 		</div>
+		{% if app.user %}
+			<div class="d-flex justify-content-center align-items-center flex-wrap gap-2">
+				<a href="{{ path('app_thread_vote_up', {'id': thread.id}) }}" class="btn button-nav-orange">like</a>
+				<p>score :
+					{{ thread.totalVotes }}</p>
+				<a href="{{ path('app_thread_vote_down', {'id': thread.id}) }}" class="btn button-nav-orange">dislike</a>
+			</div>
+		{% else %}
+			<div class="d-flex justify-content-center align-items-center flex-wrap gap-2">
+				<a href="{{ path('app_login') }}" class="btn button-nav-orange">like</a>
+				<p>score :
+					{{ thread.totalVotes }}</p>
+				<a href="{{ path('app_login') }}" class="btn button-nav-orange">dislike</a>
+			</div>
+		{% endif %}
 		<h2>{{ responses|length }}
 			Réponse(s)</h2>
 		{% for response in responses %}
@@ -54,6 +54,12 @@
 				</div>
 				<p>{{ response.main }}</p>
 			</a>
+			<div class="d-flex justify-content-center align-items-center flex-wrap gap-2">
+				<a href="{{ path('app_response_vote_up', {'id_thread': thread.id, 'id_response': response.id}) }}" class="btn button-nav-orange">like</a>
+				<p>score :
+					{{ response.totalVotes }}</p>
+				<a href="{{ path('app_response_vote_down', {'id_thread': thread.id, 'id_response': response.id}) }}" class="btn button-nav-orange">dislike</a>
+			</div>
 		{% endfor %}
 		<div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
 			<a class="btn button-nav-orange" href="{{ path('app_response_new', {'id_thread': thread.id}) }}">Répondre</a>

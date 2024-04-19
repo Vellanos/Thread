@@ -26,7 +26,7 @@
 			<div class="homeBox">
 				<div class="formBgCreate d-flex flex-column justify-content-center">
 					<h2>Vous n'avez pas accèder à cette Réponse :
-						<a href="{{ path('app_thread_list')}}">
+						<a href="{{ path('app_thread', {'id': response.getThread.id}) }}">
 							<span class="blue">retour</span>
 						</a>
 					</h2>
