@@ -6,7 +6,7 @@
 {% block body %}
 	{% if app.user %}
 		<div class="homeBox d-flex flex-column gap-3">
-            <h1>Créer votre Thread</h1>
+			<h1>Créer votre Thread</h1>
 			<div class="formBgCreate d-flex flex-column justify-content-center">
 				{{ form_start(createForm, {'attr': {'class': 'd-flex align-items-center flex-column gap-3'}}) }}
 
@@ -33,14 +33,11 @@
 		<div class="homeBox">
 			<div class="formBgCreate d-flex flex-column justify-content-center">
 				<h2>Non connecté, veuillez vous
-					<a href="{{ path('app_login')}}"><span class="blue">connecter</span></a>
+					<a href="{{ path('app_login')}}">
+						<span class="blue">connecter</span>
+					</a>
 				</h2>
 			</div>
 		</div>
 	{% endif %}
-	{# Section de débogage #}
-	{# <div class="debugBox">
-		<h2>Debug</h2>
-		<pre>{{ dump(app.user) }}</pre>
-	</div> #}
 {% endblock %}
