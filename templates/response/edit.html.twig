@@ -16,7 +16,7 @@
 
 					<div class="d-flex flex-wrap justify-content-center gap-2">
 						<button type="submit" class="btn button-nav-orange">Editer</button>
-						{# <a class="btn button-nav-orange" href="{{ path('app_response_delete', {'id': thread.id}) }}">Supprimer</a> #}
+						<a class="btn button-nav-orange" href="{{ path('app_response_delete', {'id_thread': response.getThread.id, 'id_response': response.id}) }}">Supprimer</a>
 					</div>
 					{{ form_end(editForm) }}
 				</div>
@@ -46,6 +46,6 @@
 	{# Section de débogage #}
 	{# <div class="debugBox">
 							<h2>Debug</h2>
-							<pre>{{ dump(app.user) }}</pre>
+							<pre>{{ dump(response.id) }}</pre>
 						</div> #}
 {% endblock %}

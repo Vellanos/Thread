@@ -8,12 +8,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ResponseFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ResponseController extends AbstractController
 {
     #[Route('/thread/{id_thread}/response/{id_response}/edit', name: 'app_response_edit')]
-    public function editCharacter(
+    public function editResponse(
         $id_thread,
         $id_response,
         EntityManagerInterface $entityManager,
@@ -45,5 +46,34 @@ class ResponseController extends AbstractController
             'editForm' => $form,
             'response' => $response
         ]);
+    }
+
+    #[Route('/thread/{id_thread}/response/{id_response}/delete', name: 'app_response_delete')]
+    public function deleteResponse($id_thread, $id_response, EntityManagerInterface $entityManager): Response
+    {
+        $responseRepository = $entityManager->getRepository(EntityResponse::class);
+        $response = $responseRepository->find($id_response);
+
+        $threadRepository = $entityManager->getRepository(Thread::class);
+        $thread = $threadRepository->find($id_thread);
+
+        if (!$response) {
+            throw $this->createNotFoundException('Response not found');
+        }
+
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($response->getUser() !== $user) {
+            throw $this->createAccessDeniedException('You are not allowed to delete this thread');
+        }
+
+        $entityManager->remove($response);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_thread', ['id' => $id_thread]);
     }
 }

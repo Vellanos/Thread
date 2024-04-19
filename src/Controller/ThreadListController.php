@@ -27,7 +27,7 @@ class ThreadListController extends AbstractController
     }
 
     #[Route('/thread/{id}', name: 'app_thread')]
-    public function threadDetails($id,EntityManagerInterface $entityManager): httpResponse
+    public function threadDetails($id, EntityManagerInterface $entityManager): httpResponse
     {
         $threadRepository = $entityManager->getRepository(Thread::class);
         $thread = $threadRepository->findOneBy(['id' => $id]);
@@ -40,7 +40,7 @@ class ThreadListController extends AbstractController
     }
 
     #[Route('/thread/new', name: 'app_thread_new', priority: 10)]
-    public function createCharacter(
+    public function createThread(
         Request $request,
         EntityManagerInterface $entityManager,
     ) {
@@ -70,7 +70,7 @@ class ThreadListController extends AbstractController
     }
 
     #[Route('/thread/{id}/edit', name: 'app_thread_edit')]
-    public function editCharacter(
+    public function editThread(
         $id,
         EntityManagerInterface $entityManager,
         Request $request
@@ -163,28 +163,28 @@ class ThreadListController extends AbstractController
     }
 
     #[Route('/thread/{id}/delete', name: 'app_thread_delete')]
-public function deleteUser($id, EntityManagerInterface $entityManager): Response
-{
-    $threadRepository = $entityManager->getRepository(Thread::class);
-    $thread = $threadRepository->find($id);
+    public function deleteThread($id, EntityManagerInterface $entityManager): Response
+    {
+        $threadRepository = $entityManager->getRepository(Thread::class);
+        $thread = $threadRepository->find($id);
 
-    if (!$thread) {
-        throw $this->createNotFoundException('Thread not found');
+        if (!$thread) {
+            throw $this->createNotFoundException('Thread not found');
+        }
+
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($thread->getIdUser() !== $user) {
+            throw $this->createAccessDeniedException('You are not allowed to delete this thread');
+        }
+
+        $entityManager->remove($thread);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_thread_list');
     }
-
-    $user = $this->getUser();
-    
-    if (!$user) {
-        return $this->redirectToRoute('app_login');
-    }
-
-    if ($thread->getIdUser() !== $user) {
-        throw $this->createAccessDeniedException('You are not allowed to delete this thread');
-    }
-
-    $entityManager->remove($thread);
-    $entityManager->flush();
-
-    return $this->redirectToRoute('app_thread_list');
-}
 }
